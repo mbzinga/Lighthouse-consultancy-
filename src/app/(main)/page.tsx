@@ -138,7 +138,7 @@ export default function Home() {
                 How it works
               </h2>
               <p className="mt-4 text-lg leading-7 text-charcoal-500 max-w-2xl mx-auto">
-                Getting started is simple. Here's what to expect when you work with us
+                Getting started is simple. Here&apos;s what to expect when you work with us
               </p>
             </div>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
