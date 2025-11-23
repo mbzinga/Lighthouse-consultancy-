@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+
+@theme {
+  --text-*: initial;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 2rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 2rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 2.5rem;
+  --text-3xl: 2rem;
+  --text-3xl--line-height: 2.5rem;
+  --text-4xl: 2.5rem;
+  --text-4xl--line-height: 3rem;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 3.5rem;
+  --text-6xl: 4rem;
+  --text-6xl--line-height: 1;
+  --text-7xl: 5rem;
+  --text-7xl--line-height: 1;
+  --text-8xl: 6rem;
+  --text-8xl--line-height: 1;
+  --text-9xl: 8rem;
+  --text-9xl--line-height: 1;
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-poppins);
+
+  --container-2xl: 40rem;
+
+  /* Lighthouse Consultancy Brand Colors */
+  /* Primary (Deep Navy) - depth, professionalism, calm authority */
+  --color-navy-50: #e8ecf1;
+  --color-navy-100: #d1d9e3;
+  --color-navy-200: #a3b3c7;
+  --color-navy-300: #748dab;
+  --color-navy-400: #46678f;
+  --color-navy-500: #0a2342;
+  --color-navy-600: #081c37;
+  --color-navy-700: #06152b;
+  --color-navy-800: #040e20;
+  --color-navy-900: #020716;
+  
+  /* Secondary (Soft Gold) - warm beacon glow, light, care, optimism */
+  --color-gold-50: #faf8f3;
+  --color-gold-100: #f4ede1;
+  --color-gold-200: #e9dbc3;
+  --color-gold-300: #dec9a5;
+  --color-gold-400: #d3b787;
+  --color-gold-500: #e5b769;
+  --color-gold-600: #b79254;
+  --color-gold-700: #896e3f;
+  --color-gold-800: #5c492a;
+  --color-gold-900: #2e2515;
+  
+  /* Accent (Teal Mist) - soothing tone to balance navy */
+  --color-teal-50: #eef6f6;
+  --color-teal-100: #ddeded;
+  --color-teal-200: #bbdbdb;
+  --color-teal-300: #99c9c9;
+  --color-teal-400: #77b7b7;
+  --color-teal-500: #6ca6a3;
+  --color-teal-600: #568582;
+  --color-teal-700: #406462;
+  --color-teal-800: #2a4341;
+  --color-teal-900: #152221;
+  
+  /* Highlight (Sky Blue) - clarity, guidance, openness */
+  --color-sky-50: #f6fafb;
+  --color-sky-100: #edf5f7;
+  --color-sky-200: #dbebef;
+  --color-sky-300: #c9e1e7;
+  --color-sky-400: #b7d7df;
+  --color-sky-500: #a7d1e7;
+  --color-sky-600: #86a7b9;
+  --color-sky-700: #647d8b;
+  --color-sky-800: #43545c;
+  --color-sky-900: #212a2e;
+  
+  /* Neutral Light (Sandstone) - warm off-white base */
+  --color-sand-50: #fefdfd;
+  --color-sand-100: #fdfbfb;
+  --color-sand-200: #fbf7f7;
+  --color-sand-300: #f9f3f3;
+  --color-sand-400: #f7efef;
+  --color-sand-500: #f6f3ef;
+  --color-sand-600: #c5c2bf;
+  --color-sand-700: #94918f;
+  --color-sand-800: #626160;
+  --color-sand-900: #313030;
+  
+  /* Text (Charcoal) - readable text with strong contrast */
+  --color-charcoal-50: #f5f5f5;
+  --color-charcoal-100: #ebebeb;
+  --color-charcoal-200: #d7d7d7;
+  --color-charcoal-300: #c3c3c3;
+  --color-charcoal-400: #afafaf;
+  --color-charcoal-500: #2b2b2b;
+  --color-charcoal-600: #222222;
+  --color-charcoal-700: #1a1a1a;
+  --color-charcoal-800: #111111;
+  --color-charcoal-900: #090909;
+  
+  /* Legacy teal colors for migration */
+  --color-teal-migrate-50: #f0fdfa;
+  --color-teal-migrate-100: #ccfbf1;
+  --color-teal-migrate-200: #99f6e4;
+  --color-teal-migrate-300: #5eead4;
+  --color-teal-migrate-400: #2dd4bf;
+  --color-teal-migrate-500: #14b8a6;
+  --color-teal-migrate-600: #0d9488;
+  --color-teal-migrate-700: #0f766e;
+  --color-teal-migrate-800: #115e59;
+  --color-teal-migrate-900: #134e4a;
+  
+  /* Legacy slate colors for migration */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Large touch targets for mobile accessibility */
+button,
+a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Clear focus states */
+*:focus-visible {
+  outline: 2px solid var(--color-navy-500);
+  outline-offset: 2px;
+}

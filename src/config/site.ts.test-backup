@@ -1,0 +1,16 @@
+// Backup of original config before test changes
+// This file can be deleted after testing
+
+export const testConfig = {
+  // Original Price IDs before test:
+  starterConsultation: 'price_1SLnn7IrJSp147Zwq83YvKmV',
+  extendedConsultation: 'price_1SLnntIrJSp147ZwwZihcxPM',
+  advocacyPackage: 'price_1SLnq5IrJSp147ZwXTq1PxUG',
+}
+
+
+
+
+
+
+
