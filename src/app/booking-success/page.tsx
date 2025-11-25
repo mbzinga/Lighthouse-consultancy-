@@ -105,7 +105,7 @@ export default async function BookingSuccessPage({
       // Fallback to Supabase purchase metadata if Stripe metadata doesn't have it
       if (!eventTypeUri && purchase) {
         const metadata = purchase.metadata as {
-          bookingOption?: { eventTypeUri: string; type: string }
+          bookingOption?: { eventTypeUri: string; type: string; audience?: string }
           eventTypeUri?: string
           audience?: string
         }
