@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { supabaseServer, validateSupabaseConfig } from '@/lib/supabaseServer'
 import { contactFormSchema } from '@/types'
+import { sendContactFormNotification } from '@/lib/email'
 
 export async function POST(request: Request) {
   try {
@@ -26,6 +27,20 @@ export async function POST(request: Request) {
         { error: 'Failed to save contact' },
         { status: 500 },
       )
+    }
+
+    // Send email notification to admin
+    try {
+      await sendContactFormNotification({
+        name: validated.name,
+        email: validated.email,
+        organisation: validated.organisation,
+        audience: validated.audience,
+        message: validated.message,
+      })
+    } catch (emailError) {
+      // Log email error but don't fail the request - contact was saved to DB
+      console.error('Failed to send email notification:', emailError)
     }
 
     return NextResponse.json({ message: 'Contact saved successfully' }, { status: 201 })

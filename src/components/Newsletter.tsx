@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import Image from 'next/image'
 
 import { Button } from '@/components/Button'
@@ -19,7 +22,52 @@ function ArrowRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
+function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" {...props}>
+      <path
+        d="M5 13l4 4L19 7"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function Newsletter() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus('loading')
+    setErrorMessage('')
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      if (!response.ok) {
+        const data = await response.json()
+        throw new Error(data.error || 'Failed to subscribe')
+      }
+
+      setStatus('success')
+      setEmail('')
+    } catch (error) {
+      setStatus('error')
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to subscribe')
+    }
+  }
+
   return (
     <section id="newsletter" aria-label="Newsletter">
       <Container>
@@ -38,30 +86,50 @@ export function Newsletter() {
                 Stay up to date
               </p>
               <p className="mt-4 text-lg tracking-tight text-blue-900">
-                Get updates on all of our events and be the first to get
-                notified when tickets go on sale.
+                Get updates on our latest resources, SEND news, and be the first
+                to hear about new services.
               </p>
             </div>
-            <form>
-              <h3 className="text-lg font-semibold tracking-tight text-blue-900">
-                Sign up to our newsletter <span aria-hidden="true">&darr;</span>
-              </h3>
-              <div className="mt-5 flex rounded-3xl bg-white py-2.5 pr-2.5 shadow-xl shadow-blue-900/5 focus-within:ring-2 focus-within:ring-blue-900">
-                <input
-                  type="email"
-                  required
-                  placeholder="Email address"
-                  aria-label="Email address"
-                  className="-my-2.5 flex-auto bg-transparent pr-2.5 pl-6 text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden"
-                />
-                <Button type="submit">
-                  <span className="sr-only sm:not-sr-only">Sign up today</span>
-                  <span className="sm:hidden">
-                    <ArrowRightIcon className="h-6 w-6" />
-                  </span>
-                </Button>
+            {status === 'success' ? (
+              <div className="flex items-center gap-3 rounded-3xl bg-teal-50 p-6 text-teal-800">
+                <CheckIcon className="h-6 w-6 flex-shrink-0" />
+                <p className="font-medium">
+                  Thanks for subscribing! We&apos;ll be in touch.
+                </p>
               </div>
-            </form>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <h3 className="text-lg font-semibold tracking-tight text-blue-900">
+                  Sign up to our newsletter{' '}
+                  <span aria-hidden="true">&darr;</span>
+                </h3>
+                <div className="mt-5 flex rounded-3xl bg-white py-2.5 pr-2.5 shadow-xl shadow-blue-900/5 focus-within:ring-2 focus-within:ring-blue-900">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Email address"
+                    aria-label="Email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={status === 'loading'}
+                    className="-my-2.5 flex-auto bg-transparent pr-2.5 pl-6 text-base text-slate-900 placeholder:text-slate-400 focus:outline-hidden disabled:opacity-50"
+                  />
+                  <Button type="submit" disabled={status === 'loading'}>
+                    <span className="sr-only sm:not-sr-only">
+                      {status === 'loading' ? 'Signing up...' : 'Sign up today'}
+                    </span>
+                    <span className="sm:hidden">
+                      <ArrowRightIcon className="h-6 w-6" />
+                    </span>
+                  </Button>
+                </div>
+                {status === 'error' && (
+                  <p className="mt-3 text-sm text-red-600" role="alert">
+                    {errorMessage}
+                  </p>
+                )}
+              </form>
+            )}
           </div>
         </div>
       </Container>

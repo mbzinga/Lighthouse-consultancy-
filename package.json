@@ -24,6 +24,7 @@
     "next": "^15",
     "react": "^19",
     "react-dom": "^19",
+    "resend": "^6.5.2",
     "stripe": "^19.1.0",
     "tailwindcss": "^4.1.11",
     "tsx": "^4.20.6",
