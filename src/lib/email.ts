@@ -1,8 +1,17 @@
 import { Resend } from 'resend'
 import { siteConfig } from '@/config/site'
 
-// Initialize Resend client
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resendApiKey = process.env.RESEND_API_KEY
+const resend = resendApiKey ? new Resend(resendApiKey) : null
+
+function ensureResendClient() {
+  if (!resend) {
+    throw new Error(
+      'Resend API key not configured. Set RESEND_API_KEY in your environment variables.',
+    )
+  }
+  return resend
+}
 
 // Admin email to receive notifications
 const ADMIN_EMAIL = siteConfig.contactEmails.info
@@ -41,7 +50,7 @@ export async function sendContactFormNotification(data: ContactFormEmailData) {
     la: 'Local Authority Professional',
   }
 
-  const { error } = await resend.emails.send({
+  const { error } = await ensureResendClient().emails.send({
     from: FROM_EMAIL,
     to: ADMIN_EMAIL,
     replyTo: data.email,
@@ -81,7 +90,7 @@ export async function sendContactFormNotification(data: ContactFormEmailData) {
  * Send email notification when someone signs up for the newsletter
  */
 export async function sendNewsletterSignupNotification(data: NewsletterSignupEmailData) {
-  const { error } = await resend.emails.send({
+  const { error } = await ensureResendClient().emails.send({
     from: FROM_EMAIL,
     to: ADMIN_EMAIL,
     subject: 'New Newsletter Subscriber',
@@ -110,7 +119,7 @@ export async function sendNewsletterSignupNotification(data: NewsletterSignupEma
  * Send email notification when someone completes a booking payment
  */
 export async function sendBookingNotification(data: BookingNotificationEmailData) {
-  const { error } = await resend.emails.send({
+  const { error } = await ensureResendClient().emails.send({
     from: FROM_EMAIL,
     to: ADMIN_EMAIL,
     subject: `New Booking: ${data.bookingTitle} from ${data.customerName}`,
